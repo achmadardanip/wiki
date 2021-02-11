@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block body %}
+    {% for item in entries %}
+        <h3 class="display-1">Searching for {{value}}:</h3>
+        <li class="entry-link"><a href=/wiki/{{item}}>{{ item }}</a></li>
+    {% empty %}
+    <h3 class="no-item">Your search - {{value}} - did not match any documents.</h3>
+{% endfor %}
+
+{% endblock %}

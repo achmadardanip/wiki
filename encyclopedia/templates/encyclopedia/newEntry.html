@@ -1,0 +1,35 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {% if edit %}
+        Editing {{entryTitle}}
+    {% else %}
+        Create a new entry
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+{% if isExist %}
+    <div class="alert alert-danger w-50" role="alert">
+        The <strong>{{entry}}</strong> entry is already exist. If you want to visit or edit it, <a href="{% url 'wiki:title' title=entry %}" class="alert-link">Click here</a>
+    </div>
+    <div class="alert alert-info w-50" role="alert">
+        Or you can <a href="{% url 'wiki:create' %}" class="alert-link">Create a new entry</a>
+    </div>
+{% else %}
+<div class="form-group">
+    {% if edit %}
+        <h1>Editing {{entryTitle}}</h1>
+    {% else %}
+        <h1>Create a new entry</h1>
+    {% endif %}
+    <form action="{%url 'wiki:create' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit">
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}
